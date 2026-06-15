@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jenkins Deploy Test</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .badge {
+    background: #22c55e22;
+    border: 1px solid #22c55e55;
+    color: #22c55e;
+    padding: 6px 16px;
+    border-radius: 99px;
+    font-size: 13px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  h1 {
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  p.sub {
+    color: #94a3b8;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 48px;
+  }
+  .cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+  .card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 24px 28px;
+    min-width: 180px;
+    text-align: center;
+  }
+  .card .label { font-size: 12px; color: #64748b; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .card .value { font-size: 22px; font-weight: 600; color: #e2e8f0; }
+  .card .value.green { color: #22c55e; }
+  .pipeline {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 28px;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 32px;
+  }
+  .pipeline h2 { font-size: 16px; color: #94a3b8; margin-bottom: 20px; }
+  .stages {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .stage { flex: 1; text-align: center; }
+  .stage-icon {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 8px;
+    font-size: 16px;
+  }
+  .stage-icon.done { background: #22c55e22; border: 1px solid #22c55e55; }
+  .stage-icon.active { background: #38bdf822; border: 1px solid #38bdf855; }
+  .stage-name { font-size: 11px; color: #64748b; }
+  .connector {
+    flex: 0.3;
+    height: 1px;
+    background: #334155;
+    margin-bottom: 20px;
+  }
+  footer {
+    color: #475569;
+    font-size: 13px;
+    text-align: center;
+  }
+  footer span { color: #38bdf8; }
+</style>
+</head>
+<body>
+  <div class="badge"><div class="dot"></div> Deployed via Jenkins</div>
+
+  <h1>Hello, Jenkins!</h1>
+  <p class="sub">Your CI/CD pipeline is working perfectly.</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="label">Status</div>
+      <div class="value green">✓ Success</div>
+    </div>
+    <div class="card">
+      <div class="label">Deployed by</div>
+      <div class="value">Jenkins</div>
+    </div>
+    <div class="card">
+      <div class="label">Build</div>
+      <div class="value">#1</div>
+    </div>
+    <div class="card">
+      <div class="label">Date</div>
+      <div class="value" id="date" style="font-size:15px"></div>
+    </div>
+  </div>
+
+  <div class="pipeline">
+    <h2>Pipeline Stages</h2>
+    <div class="stages">
+      <div class="stage">
+        <div class="stage-icon done">✓</div>
+        <div class="stage-name">Checkout</div>
+      </div>
+      <div class="connector"></div>
+      <div class="stage">
+        <div class="stage-icon done">✓</div>
+        <div class="stage-name">Build</div>
+      </div>
+      <div class="connector"></div>
+      <div class="stage">
+        <div class="stage-icon done">✓</div>
+        <div class="stage-name">Test</div>
+      </div>
+      <div class="connector"></div>
+      <div class="stage">
+        <div class="stage-icon active">🚀</div>
+        <div class="stage-name">Deploy</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Hosted on <span>Jenkins + Docker</span> · Your server is working great!</footer>
+
+  <script>
+    const d = new Date();
+    document.getElementById('date').textContent = d.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+  </script>
+</body>
+</html>
